@@ -36,7 +36,7 @@
 
 \d .prof
 
-NSX:`q`Q`h`o`prof / Namespace exclusion list
+NSX:`q`Q`h`j`o`prof / Namespace exclusion list
 LL:30 / Number of source chars to show
 
 PFD:(0#`)!PFS::()
@@ -225,7 +225,7 @@ xf:{[nm;fn]
 	j:where q<={j:i|-1_0b,i:not x in "\t ";i|expand[j;(1_k,0b)&-1_0b,k:(x where j) in CH]} fn; / Mark (with 0's) redundant white space
 	p@:j;ln@:j;fn[where "\t"=fn@:j]:" "; / Convert to more canonical form
 	j:where @[";"=fn i-1;0,count[i]-1;:;1b]&1i=p i:0,where ln; / Lines to consider, with leading NL
-	if[count ss[first[i[1_j],count fn]#fn]"p__:.prof.";:""]; / Skip if instrumented
+	if[count ss[first[i[1_j],count fn]#fn]"p99:.prof.";:""]; / Skip if instrumented
 	f:{[nm;n;v;p]
 		s:_[o+:("\n"<>_[o:$[(t:1<abs n)<"{["~2#v;1+v?"]";1]]v)?1b]v;p:o _p; / Offset to code start and resultant string
 		ra:{[s;p] where(p>0i)&(-1_1b,s in "\n([{;")&(s=":")>1_(s in ":;)]}"),0b}; / Return starts
@@ -233,8 +233,8 @@ xf:{[nm;fn]
 		a:(a+1),rz[;s;p] each a:ra[s;p]; / Compute return starts and corresponding ends
 		if[(c:not count s)<1<>a 0;a:0,a,count[s]-((|)s in "\n;")?0b]; / Wrap non-empty, non-return stmt
 		j:where[2#(_)0.5*count b]b:iasc a; / Distinguish starts from ends, in sequence
-		e:(,/)((0,a b)_s),'(({".prof.mon[p__;",string[x],";["}each n,(-)abs n),(,)"]]")[j+a>0],(,)"";
-		((o#v),$[t;"";"p__:.prof.init[`",nm,"];"],(count[e]*c)_e;(LL&count s)#s)
+		e:(,/)((0,a b)_s),'(({".prof.mon[p99;",string[x],";["}each n,(-)abs n),(,)"]]")[j+a>0],(,)"";
+		((o#v),$[t;"";"p99:.prof.init[`",nm,"];"],(count[e]*c)_e;(LL&count s)#s)
 		}[string nm]'[j*1 -1[j=last j+:1];i[j]_fn;i[j]_p];
 	((k#"k)"),(,/)(first each f),"}";j;last each f)
 	}
