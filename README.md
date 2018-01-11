@@ -37,11 +37,11 @@ function that signals an event to a higher level.
 
 | Name and Syntax | Description |
 | --------------- | ----------- |
-| .prof.prof[names] | Profiles the specified functions, or all functions in the specified namespaces. If the argument is \`, all functions in all non-system namespaces are profiled |
-| .prof.unprof[names] | Unprofiles the specified functions, or all functions in the specified namespaces for which profiling is enabled. Collected usage information is discarded. If the argument is \`, all profiled functions in all non-system namespaces are unprofiled |
-| .prof.report[names] | Produces a report of collected profile information for the specified functions, or all functions in the specified namespaces for which profiling is enabled. If the argument is \`, all profiled functions in all non-system namespaces are included in the report. Execution times are reported in milliseconds. Only lines executed are included. The report is ordered by decreasing total line execution time |
-| .prof.data[names] | Returns the raw data representing the collected profile information for the specified functions, or all functions in the specified namespaces for which profiling is enabled. If the argument is \`, all profiled functions in all non-system namespaces are included in the result. Only lines executed are included. The result is ordered alphabetically by function name and then by line number |
-| .prof.reset[names] | Resets the profile statistics for all profiled functions, discarding previous results. The state of profiled functions is unaltered |
+| `.prof.prof[names]` | Profiles the specified functions, or all functions in the specified namespaces. If the argument is \`, all functions in all non-system namespaces are profiled |
+| `.prof.unprof[names]` | Unprofiles the specified functions, or all functions in the specified namespaces for which profiling is enabled. Collected usage information is discarded. If the argument is \`, all profiled functions in all non-system namespaces are unprofiled |
+| `.prof.report[names]` | Produces a report of collected profile information for the specified functions, or all functions in the specified namespaces for which profiling is enabled. If the argument is \`, all profiled functions in all non-system namespaces are included in the report. Execution times are reported in milliseconds. Only lines executed are included. The report is ordered by decreasing total line execution time |
+| `.prof.data[names]` | Returns the raw data representing the collected profile information for the specified functions, or all functions in the specified namespaces for which profiling is enabled. If the argument is \`, all profiled functions in all non-system namespaces are included in the result. Only lines executed are included. The result is ordered alphabetically by function name and then by line number |
+| `.prof.reset[names]` | Resets the profile statistics for all profiled functions, discarding previous results. The state of profiled functions is unaltered |
 
 The variable `.prof.LL` can be adjusted to change the maximum length of the source line included in the collected data, as reflected by `.prof.report` and `.prof.data`.
 
