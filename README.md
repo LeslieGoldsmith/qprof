@@ -45,6 +45,11 @@ function that signals an event to a higher level.
 
 The variable `.prof.LL` can be adjusted to change the maximum length of the source line included in the collected data, as reflected by `.prof.report` and `.prof.data`.
 
+# Changes
+
+* The profiler now shows the percentage of time consumed on each line relative to all lines.
+* The profiler report is now ordered by decreasing own line execution time.
+
 # Author
 
 Leslie Goldsmith, First Derivatives
