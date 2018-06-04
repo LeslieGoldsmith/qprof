@@ -1,16 +1,19 @@
 /
 	Q code profiler
-	Copyright (c) 2014-2017 First Derivatives
+	Copyright (c) 2014-2018 First Derivatives
 
-	This program is free software; you can redistribute it and/or
-	modify it under the terms of the GNU General Public License as
-	published by the Free Software Foundation; either version 2 of
-	the License, or (at your option) any later version.
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at:
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing,
+	software distributed under the License is distributed on an
+	"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+	either express or implied.  See the License for the specific 
+	language governing permissions and limitations under the 
+	License.
 
 	----------------
 	
@@ -95,6 +98,7 @@ reset:{PFD[;1 2 3]*:0;PFS::()}
 //		- line execution count
 //		- total time consumed on the line (including subcalls)
 //		- time consumed on the line itself
+//		- percentage of time consumed on the line relative to all lines
 //
 // Lines not executed are not included in the report.
 //
@@ -110,7 +114,7 @@ data:{
 	x:$[mt x;key PFD;not(&/)b:(x,:())in key PFD;[-2 "Not profiled:",/" ",'string x where not b;x where b];x];
 	a:x where n:count each w:flip each PFD x; / Function names
 	t:(-\)each(w:raze w)[;2 3]; / Total and own ( = total - subcall)
-	asc select from ([]Name:a;Line:(,/)til each n;Stmt:w[;0];Count:w[;1];Total:t[;0];Own:t[;1]) where Count<>0
+	asc update Pct:100*Own%(+/)Own from select from ([]Name:a;Line:(,/)til each n;Stmt:`$ssr[;"\n";" "]each w[;0];Count:w[;1];Total:t[;0];Own:t[;1]) where Count>0
 	}
 
 
@@ -124,6 +128,7 @@ data:{
 //		- line execution count
 //		- total time consumed on the line (including subcalls), in MM:SS.sss
 //		- time consumed on the line itself, in MM:SS.sss
+//		- percentage of time consumed on the line relative to all other lines
 //
 // Lines not executed are not included in the report.
 //
@@ -133,11 +138,11 @@ data:{
 //				  		profiled functions.
 //
 // @return {table}		A table containing the execution report, ordered by decreasing
-//						total line execution time.
+//						own line execution time.
 //
 report:{
-	t:`$5_''-6_''string each value flip select Total,Own from w:data x;
-	`Total xdesc update Total:first t,Own:last t from w
+	t:`$3_''string"t"$(w:data x)`Total`Own;
+	`Own xdesc update Total:first t,Own:last t,Pct:`$(.prof.ffmt[2;Pct],'"%") from w
 	}
 
 
@@ -155,6 +160,7 @@ getn:{(,/)getns each x}
 getns:{$[type key x;$[ns value x;ff(j where not i),getn(j:` sv'x,'k)where i:ns each x k:1_key x;`.~x;ff key x;x];x]}
 expand:{[msk;a] @[msk;where msk;:;a]}
 trueAt:{@[x#0b;y;:;1b]}
+ffmt:{("0";"")[x<count each s],'(i _'s),'".",'(i:neg x)#'s:string(_)y*/x#10}
 
 CH:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-`.:"
 
