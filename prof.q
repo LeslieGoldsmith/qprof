@@ -187,7 +187,7 @@ def:{[nm;c;f]
 // @return {int}		Origin-0 index of the stack level of the new function call.
 //
 init:{[nm]
-	-1+count PFS,:enl nm,1 1 0*.z.n / Name, fn entry ts, line entry ts, accumulated subcall time ( = 0)
+	-1+count PFS,:enl nm,(p,p:.z.p),"n"$0 / Name, fn entry ts, line entry ts, accumulated subcall time ( = 0)
 	}
 
 	
@@ -204,7 +204,7 @@ init:{[nm]
 // @return {any}		The result is the argument `r` without modification.
 //	
 mon:{[i;n;r]
-	t:.z.n;s:PFS i;
+	t:.z.p;s:PFS i;
 	$[n<0;[if[i;PFS[i-1;3]+:t-s 1];PFS::i#PFS];PFS[i;2 3]:1 0*t]; / Accrue subcall time to parent on return; else reset line and subcall times
 	PFD[first s;1 2 3;-1+abs n]+:(1i;t-s 2;s 3); / Count, total time, subcall time
 	r
