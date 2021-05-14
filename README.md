@@ -52,4 +52,4 @@ The variable `.prof.LL` can be adjusted to change the maximum length of the sour
 
 # Author
 
-Leslie Goldsmith, First Derivatives
+Leslie Goldsmith
