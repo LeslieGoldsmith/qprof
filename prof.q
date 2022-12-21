@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /
 	Q code profiler
 	Copyright (c) 2014-2019 Leslie Goldsmith
